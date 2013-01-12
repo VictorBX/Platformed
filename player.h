@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "block.h"
 using namespace std;
 
 class Player
@@ -16,20 +17,21 @@ class Player
     double pos_xf;
     double pos_yf;
     int face; //facing right
-    bool jump;
-    double velocity;
+    bool falling;
+    float velocity;
+    float acceleration;
     //actual player
     sf::Rect<float> square;
     sf::RectangleShape square_draw;
 
     //methods
   public:
-    //COnstructor
+    //Constructor
     Player(double xp, double yp);
     //Accessor
     double get_gravity() const;
     int get_face() const;
-    bool get_jump() const;
+    bool get_falling() const;
     double get_x() const;
     double get_y() const;
     sf::RectangleShape& get_shape();
@@ -39,6 +41,15 @@ class Player
     void set_face(int f);
     void set_x(double x);
     void set_y(double y);
+    void set_jump(vector<Block> blocks);
+    void move_left(vector<Block> blocks);
+    void move_right(vector<Block> blocks);
+
+    //collisions
+    bool coll_top (vector<Block> b);
+    bool coll_bottom (vector<Block> b);
+    bool coll_left (vector<Block> b);
+    bool coll_right (vector<Block> b);
 
 };
 
